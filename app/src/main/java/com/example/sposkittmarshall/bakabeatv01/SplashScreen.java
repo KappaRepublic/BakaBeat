@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -42,8 +43,20 @@ public class SplashScreen extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             return true;
+        }
+
+        if (id == R.id.refresh_files)
+        {
+            Toast.makeText(getApplicationContext(), "Refresh Chosen", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if (id == R.id.about)
+        {
+            Toast.makeText(getApplicationContext(), "About chosen", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);

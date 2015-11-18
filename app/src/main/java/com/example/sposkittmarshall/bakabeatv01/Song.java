@@ -5,6 +5,7 @@ import android.media.MediaMetadataRetriever;
 /**
  * Created by sposkittmarshall on 2015/11/04.
  */
+
 public class Song {
     // Variables to store song's metadata
     private String songPath;
@@ -13,7 +14,7 @@ public class Song {
     private String songArtist;
     private float songLength;
     private byte[] albumArt;
-    // Literally called meta getter 'cause it sounds like a giant robot
+    // Literally called metaGetter 'cause it sounds like a giant robot
     MediaMetadataRetriever metaGetter;
 
     // Constructor
@@ -50,12 +51,12 @@ public class Song {
         return songArtist;
     }
 
-    private float getSongLength()
+    public float getSongLength()
     {
         return songLength;
     }
 
-    private byte[] getAlbumArt()
+    public byte[] getAlbumArt()
     {
         return albumArt;
     }

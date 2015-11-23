@@ -29,7 +29,7 @@ public class SplashScene extends Activity {
                 }
                 finally
                 {
-                    Intent intent = new Intent(SplashScene.this, SplashScreen.class);
+                    Intent intent = new Intent(SplashScene.this, CategoriesScene.class);
                     startActivity(intent);
                 }
             }

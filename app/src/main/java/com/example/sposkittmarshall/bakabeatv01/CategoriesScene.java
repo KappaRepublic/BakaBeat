@@ -12,9 +12,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class SplashScreen extends AppCompatActivity {
-
-    ImageView logoView;
+public class CategoriesScene extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +20,6 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        logoView = (ImageView)findViewById(R.id.imageView);
-        logoView.setImageResource(getResources().getIdentifier("bakabeatlogov1", "drawable", getPackageName()));
 
     }
 

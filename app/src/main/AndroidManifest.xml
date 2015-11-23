@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".SplashScreen"
+            android:name=".CategoriesScene"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>

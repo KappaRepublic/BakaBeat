@@ -1,5 +1,6 @@
 package com.example.sposkittmarshall.bakabeatv01;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,10 +10,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class CategoriesScene extends AppCompatActivity {
+
+    ArrayList<String> categoryList;
+    SongManager songManagerMain;
+
+    ListView categoryListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +32,38 @@ public class CategoriesScene extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        // Populate the song manager
+        Thread populateThread = new Thread()
+        {
+            public void run()
+            {
+                songManagerMain.populateManager();
+            }
+        };
+
+
+        // Setup the categories list
+        categoryList = new ArrayList<>();
+        populateCategoryList();
+
+        // Populate the category list view using the newly set up array list
+        categoryListView = (ListView)findViewById(R.id.listView);
+        final ArrayAdapter<String> categoryListAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_1, android.R.id.text1, categoryList);
+        categoryListView.setAdapter(categoryListAdapter);
+
+        // Set up an onClickListener for the category list
+        categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                // Get the scene chosen by the user and the change to that scene
+                String sceneName = (String)categoryListView.getItemAtPosition(position);
+                changeScene(sceneName);
+            }
+        });
     }
 
     @Override
@@ -56,5 +99,36 @@ public class CategoriesScene extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // Add each category name to the array list
+    protected void populateCategoryList()
+    {
+        categoryList.add("Artists");
+        categoryList.add("Albums");
+        categoryList.add("All Songs");
+        categoryList.add("Genres");
+    }
+
+    // Changes the scene to the given parameter
+    protected void changeScene(String sceneName)
+    {
+        switch(sceneName)
+        {
+            // If artists is selected
+            case "Artists":
+                // Intent intent = new Intent
+                break;
+            // If albums is selected
+            case "Albums":
+                break;
+            // If all songs is selected
+            case "All Songs":
+                break;
+            // If genres is selected
+            case "Genres":
+                break;
+
+        }
     }
 }

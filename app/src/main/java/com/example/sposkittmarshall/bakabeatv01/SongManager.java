@@ -99,7 +99,6 @@ public class SongManager implements Serializable
 
     public void songJumpTo(int time)
     {
-        mPlayer.
         mPlayer.seekTo(time);
         currentSong.setSongTime(time);
     }

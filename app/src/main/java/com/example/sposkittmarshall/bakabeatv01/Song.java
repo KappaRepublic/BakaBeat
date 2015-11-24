@@ -1,5 +1,7 @@
 package com.example.sposkittmarshall.bakabeatv01;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.os.Environment;
 
@@ -18,7 +20,8 @@ public class Song implements Serializable
     private String songAlbum;
     private String songArtist;
     private String songGenre;
-    private String songLength;
+    private int songLength;
+    private int songTime;
     private byte[] albumArt;
     // Literally called metaGetter 'cause it sounds like a giant robot
     MetaDataRetrieverSerializable metaGetter;
@@ -38,12 +41,46 @@ public class Song implements Serializable
         metaGetter.setDataSource(audio.getPath() + "/" + sPath);
         // Set the song metadata
         songPath = (audio.getPath() + "/" + sPath);
-        songName = metaGetter.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-        songAlbum = metaGetter.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
-        songArtist = metaGetter.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-        songGenre = metaGetter.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE);
-        songLength = metaGetter.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-        albumArt = metaGetter.getEmbeddedPicture();
+        try
+        {
+            songName = metaGetter.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+        }
+        catch(Exception e)
+        {
+
+        }
+        try
+        {
+            songAlbum = metaGetter.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
+        }
+        catch(Exception e)
+        {
+
+        }
+        try
+        {
+            songArtist = metaGetter.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+        }
+        catch(Exception e)
+        {
+
+        }
+        try
+        {
+            songGenre = metaGetter.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE);
+        }
+        catch(Exception e)
+        {
+
+        }
+        try
+        {
+            albumArt = metaGetter.getEmbeddedPicture();
+        }
+        catch(Exception e)
+        {
+            // albumArt = NULL;
+        }
     }
 
     // Getters
@@ -72,9 +109,24 @@ public class Song implements Serializable
         return songGenre;
     }
 
-    public String getSongLength()
+    public int getSongLength()
     {
         return songLength;
+    }
+
+    public void setSongLength(int l)
+    {
+        songLength = l;
+    }
+
+    public void setSongTime(int t)
+    {
+        songTime = t;
+    }
+
+    public int getSongTime()
+    {
+        return songTime;
     }
 
     public byte[] getAlbumArt()

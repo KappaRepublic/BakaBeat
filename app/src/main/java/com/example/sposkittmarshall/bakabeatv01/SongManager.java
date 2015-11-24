@@ -51,15 +51,16 @@ public class SongManager implements Serializable
     public void playSong(int index, int arrayId)
     {
         File audio = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+        MediaPlayerSerializable mPlayerLocal = mPlayer;
+
+        Log.e("HELLO", ":" + getMediaCurrentPosition());
+        Log.e("HELLO", ":" + getMediaDuration());
 
         try
         {
             // Reset the media player
-            mPlayer.stop();
-            mPlayer = new MediaPlayerSerializable();
-            // Reset the media player
-            mPlayer.setLooping(true);
-            mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mPlayerLocal.stop();
+            mPlayerLocal.reset();
             // April fools easter egg time. In November/December
             // APRIL FOOLS
             Calendar calendar = Calendar.getInstance();
@@ -67,23 +68,51 @@ public class SongManager implements Serializable
             int month = calendar.get(Calendar.MONTH);
             if(day == 1 && month == Calendar.APRIL)
             {
-                mPlayer.setDataSource(audio.getPath() + "/" + "rofl.mp3");
+                mPlayerLocal.setDataSource(audio.getPath() + "/" + "rofl.mp3");
             }
             else
             {
-                mPlayer.setDataSource(allSongList.get(index).getSongPath());
+                mPlayerLocal.setDataSource(allSongList.get(index).getSongPath());
             }
             // Play the audio given
-            mPlayer.prepare();
-            mPlayer.start();
+            mPlayerLocal.prepare();
+            // mPlayerLocal.start();
+
+            mPlayerLocal.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
+                                          {
+                                              @Override
+                                              public void onPrepared(MediaPlayer mp) {
+                                                  mp.start();
+                                              }
+                                          });
 
             // Set the current song
             currentSong = allSongList.get(index);
+            currentSong.setSongTime(0);
+            currentSong.setSongLength(mPlayerLocal.getDuration());
         }
         catch(IOException e)
         {
 
         }
+    }
+
+    public void songJumpTo(int time)
+    {
+        mPlayer.
+        mPlayer.seekTo(time);
+        currentSong.setSongTime(time);
+    }
+
+    public int getMediaDuration()
+    {
+        // Log.e("HELLO", ":" + getMediaDuration());
+        return mPlayer.getDuration();
+    }
+
+    public int getMediaCurrentPosition()
+    {
+        return mPlayer.getCurrentPosition();
     }
 
     // Populate the manager with items from file directory

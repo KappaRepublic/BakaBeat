@@ -6,13 +6,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * Created by sposk_000 on 2015/11/23.
  */
 public class SongScene  extends AppCompatActivity
 {
+
+    ListView allSongsListView;
+    ArrayList<String> testArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -23,8 +33,31 @@ public class SongScene  extends AppCompatActivity
 
         // Set up the passed songManager
         Intent givenIntent = getIntent();
-        SongManager songManagerMain = (SongManager)givenIntent.getSerializableExtra("songManager");
+        final SongManager songManagerMain = (SongManager)givenIntent.getSerializableExtra("songManager");
 
+        testArray = new ArrayList<>();
+
+        // int test = songManagerMain.allSongList.size();
+
+        for (int i = 0; i  <  songManagerMain.allSongList.size(); i++)
+        {
+            testArray.add(songManagerMain.allSongList.get(i).getSongName());
+        }
+
+        // Set up the listview
+        allSongsListView = (ListView)findViewById(R.id.listView);
+        final ArrayAdapter<String> allSongsListAdapter = new ArrayAdapter<String>
+                 (this, android.R.layout.simple_list_item_1, android.R.id.text1, testArray);
+        allSongsListView.setAdapter(allSongsListAdapter);
+
+        allSongsListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                songManagerMain.playSong(songManagerMain.allSongList.get(position).getSongPath());
+            }
+        });
     }
 
     @Override

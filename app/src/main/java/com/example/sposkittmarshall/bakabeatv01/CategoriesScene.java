@@ -32,16 +32,17 @@ public class CategoriesScene extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Create a new songManager
+        songManagerMain = new SongManager();
 
         // Populate the song manager
         Thread populateThread = new Thread()
         {
             public void run()
             {
-                songManagerMain.populateManager();
+                songManagerMain.refreshManager();
             }
         };
-
 
         // Setup the categories list
         categoryList = new ArrayList<>();
@@ -89,7 +90,16 @@ public class CategoriesScene extends AppCompatActivity {
 
         if (id == R.id.refresh_files)
         {
-            Toast.makeText(getApplicationContext(), "Refresh Chosen", Toast.LENGTH_SHORT).show();
+            // Refresh the song manager using another thread
+            Thread populateThread = new Thread()
+            {
+                public void run()
+                {
+                    songManagerMain.refreshManager();
+                }
+            };
+
+            Toast.makeText(getApplicationContext(), "Song library refreshing", Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -104,29 +114,42 @@ public class CategoriesScene extends AppCompatActivity {
     // Add each category name to the array list
     protected void populateCategoryList()
     {
+        categoryList.add("All Songs");
         categoryList.add("Artists");
         categoryList.add("Albums");
-        categoryList.add("All Songs");
         categoryList.add("Genres");
     }
 
     // Changes the scene to the given parameter
     protected void changeScene(String sceneName)
     {
+        // Create a new intent
+        Intent intent;
         switch(sceneName)
         {
+            // If all songs is selected
+            case "All Songs":
+                intent = new Intent(CategoriesScene.this, SongScene.class);
+                intent.putExtra("songManager", songManagerMain);
+                startActivity(intent);
+                break;
             // If artists is selected
             case "Artists":
-                // Intent intent = new Intent
+                intent = new Intent(CategoriesScene.this, ArtistScene.class);
+                intent.putExtra("songManager", songManagerMain);
+                startActivity(intent);
                 break;
             // If albums is selected
             case "Albums":
-                break;
-            // If all songs is selected
-            case "All Songs":
+                intent = new Intent(CategoriesScene.this, AlbumScene.class);
+                intent.putExtra("songManager", songManagerMain);
+                startActivity(intent);
                 break;
             // If genres is selected
             case "Genres":
+                intent = new Intent(CategoriesScene.this, GenreScene.class);
+                intent.putExtra("songManager", songManagerMain);
+                startActivity(intent);
                 break;
 
         }

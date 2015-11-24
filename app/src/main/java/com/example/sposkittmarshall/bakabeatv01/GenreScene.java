@@ -9,9 +9,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 /**
- * Created by sposk_000 on 2015/11/23.
+ * Created by sposk_000 on 2015/11/24.
  */
-public class SongScene  extends AppCompatActivity
+public class GenreScene extends AppCompatActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState)

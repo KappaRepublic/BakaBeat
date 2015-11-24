@@ -43,6 +43,7 @@ public class Song implements Serializable
         songArtist = metaGetter.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
         songGenre = metaGetter.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE);
         songLength = metaGetter.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+        albumArt = metaGetter.getEmbeddedPicture();
     }
 
     // Getters

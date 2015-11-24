@@ -1,5 +1,6 @@
 package com.example.sposkittmarshall.bakabeatv01;
 
+import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Environment;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -24,6 +26,10 @@ public class SongManager implements Serializable
 {
     public ArrayList<Song> allSongList;
     public MediaPlayerSerializable mPlayer;
+    public Song currentSong;
+
+    // Constants for array IDs
+    final int ARRAY_ALL_SONGS = 0;
 
     public SongManager()
     {
@@ -42,8 +48,10 @@ public class SongManager implements Serializable
     }
 
     // Plays the given song
-    public void playSong(String songFilePath)
+    public void playSong(int index, int arrayId)
     {
+        File audio = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+
         try
         {
             // Reset the media player
@@ -52,10 +60,25 @@ public class SongManager implements Serializable
             // Reset the media player
             mPlayer.setLooping(true);
             mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mPlayer.setDataSource(songFilePath);
+            // April fools easter egg time. In November/December
+            // APRIL FOOLS
+            Calendar calendar = Calendar.getInstance();
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH);
+            if(day == 1 && month == Calendar.APRIL)
+            {
+                mPlayer.setDataSource(audio.getPath() + "/" + "rofl.mp3");
+            }
+            else
+            {
+                mPlayer.setDataSource(allSongList.get(index).getSongPath());
+            }
             // Play the audio given
             mPlayer.prepare();
             mPlayer.start();
+
+            // Set the current song
+            currentSong = allSongList.get(index);
         }
         catch(IOException e)
         {
@@ -85,7 +108,7 @@ public class SongManager implements Serializable
 
     protected void clearManager()
     {
-
+        allSongList.clear();
     }
 
     // Sorts the array lists of songs alphabetically

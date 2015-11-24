@@ -22,6 +22,7 @@ public class SongScene  extends AppCompatActivity
 
     ListView allSongsListView;
     ArrayList<String> testArray;
+    SongManager songManagerMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,29 +34,22 @@ public class SongScene  extends AppCompatActivity
 
         // Set up the passed songManager
         Intent givenIntent = getIntent();
-        final SongManager songManagerMain = (SongManager)givenIntent.getSerializableExtra("songManager");
+        songManagerMain = (SongManager)givenIntent.getSerializableExtra("songManager");
 
         testArray = new ArrayList<>();
 
-        // int test = songManagerMain.allSongList.size();
-
-        for (int i = 0; i  <  songManagerMain.allSongList.size(); i++)
-        {
-            testArray.add(songManagerMain.allSongList.get(i).getSongName());
-        }
-
-        // Set up the listview
-        allSongsListView = (ListView)findViewById(R.id.listView);
-        final ArrayAdapter<String> allSongsListAdapter = new ArrayAdapter<String>
-                 (this, android.R.layout.simple_list_item_1, android.R.id.text1, testArray);
-        allSongsListView.setAdapter(allSongsListAdapter);
+        // Update the list view with songs in this category
+        updateListView();
 
         allSongsListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                songManagerMain.playSong(songManagerMain.allSongList.get(position).getSongPath());
+                songManagerMain.playSong(position, songManagerMain.ARRAY_ALL_SONGS);
+                Intent intent = new Intent(SongScene.this, CurrentSongScene.class);
+                intent.putExtra("songManager", songManagerMain);
+                startActivity(intent);
             }
         });
     }
@@ -65,6 +59,20 @@ public class SongScene  extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    private void updateListView()
+    {
+        for (int i = 0; i  <  songManagerMain.allSongList.size(); i++)
+        {
+            testArray.add(songManagerMain.allSongList.get(i).getSongName());
+        }
+
+        // Set up the listview
+        allSongsListView = (ListView)findViewById(R.id.listView);
+        final ArrayAdapter<String> allSongsListAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_1, android.R.id.text1, testArray);
+        allSongsListView.setAdapter(allSongsListAdapter);
     }
 
     @Override
@@ -83,7 +91,18 @@ public class SongScene  extends AppCompatActivity
 
         if (id == R.id.refresh_files)
         {
-            Toast.makeText(getApplicationContext(), "Refresh Chosen", Toast.LENGTH_SHORT).show();
+            // Refresh the song manager using another thread
+            Thread populateThread = new Thread()
+            {
+                public void run()
+                {
+                    songManagerMain.refreshManager();
+                }
+            };
+
+            populateThread.start();
+
+            Toast.makeText(getApplicationContext(), "Song library refreshing", Toast.LENGTH_SHORT).show();
             return true;
         }
 

@@ -29,8 +29,11 @@ public class Song implements Serializable
     // Constructor
     public Song(String filePath)
     {
-        metaGetter = new MetaDataRetrieverSerializable();
-        getSongMetadata(filePath);
+        if (filePath != null)
+        {
+            metaGetter = new MetaDataRetrieverSerializable();
+            getSongMetadata(filePath);
+        }
     }
 
     // void getSongMetadata
@@ -47,7 +50,7 @@ public class Song implements Serializable
         }
         catch(Exception e)
         {
-
+            // songName = "Unknown Title";
         }
         try
         {
@@ -55,7 +58,7 @@ public class Song implements Serializable
         }
         catch(Exception e)
         {
-
+            // songAlbum = "Unknown Album";
         }
         try
         {
@@ -63,7 +66,7 @@ public class Song implements Serializable
         }
         catch(Exception e)
         {
-
+            // songArtist = "Unknown Artist";
         }
         try
         {
@@ -71,7 +74,7 @@ public class Song implements Serializable
         }
         catch(Exception e)
         {
-
+            // songGenre = "Unknown Genre";
         }
         try
         {

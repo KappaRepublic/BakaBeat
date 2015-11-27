@@ -8,18 +8,32 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TextView;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by sposk_000 on 2015/11/23.
  */
-public class CurrentSongScene  extends AppCompatActivity
+public class CurrentSongScene  extends AppCompatActivity implements View.OnClickListener
 {
     SquareImageView albumView;
     SongManager songManagerMain;
     SeekBar trackSeekBar;
     Handler seekHandler = new Handler();
-    Handler timeHandler = new Handler();
+
+    // Helpers
+    Helpers helpers;
+
+    // Text views
+    TextView elapsedTimeView;
+    TextView totalTimeView;
+
+    // Buttons
+    Button playPauseButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +42,17 @@ public class CurrentSongScene  extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Set up helpers
+        helpers = new Helpers();
+
         // Set up the passed song manager
         Intent givenIntent = getIntent();
         songManagerMain = (SongManager) givenIntent.getSerializableExtra("songManager");
+        int position = (int)givenIntent.getSerializableExtra("position");
+        int arrayId = (int)givenIntent.getSerializableExtra("arrayId");
+
+        // Play the passed song
+        songManagerMain.playSong(position, arrayId);
 
         // Set up the current song album art
         albumView = (SquareImageView) findViewById(R.id.view);
@@ -49,14 +71,24 @@ public class CurrentSongScene  extends AppCompatActivity
             albumView.setImageBitmap(albumArtwork);
         }
 
+        // Set up the button
+        playPauseButton = (Button)findViewById(R.id.playPauseButton);
+        playPauseButton.setOnClickListener(this);
+
+        // Set up text views for elapsed time / total time
+        elapsedTimeView = (TextView)findViewById(R.id.timeElapsedText);
+        totalTimeView = (TextView)findViewById(R.id.durationText);
+        // Set the total time text to represent the current song
+        totalTimeView.setText(helpers.convertToMinutes(songManagerMain.mPlayer.getDuration()));
+
         // Set up the seek bar
         trackSeekBar = (SeekBar)findViewById(R.id.seekBar);
-        trackSeekBar.setMax(songManagerMain.currentSong.getSongLength());
+        trackSeekBar.setMax(songManagerMain.mPlayer.getDuration());
         trackSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
             {
-                songManagerMain.songJumpTo(progress);
+
             }
 
             @Override
@@ -68,15 +100,15 @@ public class CurrentSongScene  extends AppCompatActivity
             @Override
             public void onStopTrackingTouch(SeekBar seekBar)
             {
-
+                songManagerMain.songJumpTo(seekBar.getProgress());
             }
         });
 
         updateSeekBar();
-        updateSongTime();
     }
 
-    Runnable run = new Runnable()
+    // Thread for updating the seek bar
+    Runnable seekThread = new Runnable()
     {
         @Override
         public void run()
@@ -85,30 +117,24 @@ public class CurrentSongScene  extends AppCompatActivity
         }
     };
 
-    Runnable updateSongTimeThread = new Runnable()
+    // Seek bar update code
+    private void updateSeekBar()
     {
-        @Override
-        public void run()
-        {
-            updateSongTime();
-        }
-    };
-
-    public void updateSeekBar()
-    {
-        // Get the current time elapsed
-        int timeElapsed = songManagerMain.currentSong.getSongTime();
         // Set the seekbars progress to elapsed time
-        trackSeekBar.setProgress(timeElapsed);
-        seekHandler.postDelayed(run, 1000);
-
+        trackSeekBar.setProgress(songManagerMain.mPlayer.getCurrentPosition());
+        seekHandler.postDelayed(seekThread, 1000);
+        // Update the elapsed time field
+        elapsedTimeView.setText(helpers.convertToMinutes(songManagerMain.mPlayer.getCurrentPosition()));
     }
 
-    public void updateSongTime()
+    public void onClick(View v)
     {
-        songManagerMain.currentSong.setSongTime(songManagerMain.currentSong.getSongTime() + 1);
-        timeHandler.postDelayed(updateSongTimeThread, 1);
-        // Log.e("HIE", ":" + songManagerMain.currentSong.getSongTime());
-        // Log.e("HIE", ":" + songManagerMain.currentSong.getSongLength());
+        // If the play/pause button is selected
+        if (v == playPauseButton)
+        {
+            Log.e("Hello:", "Hi");
+            // Play/Pause the current song
+            songManagerMain.playPauseSong();
+        }
     }
 }

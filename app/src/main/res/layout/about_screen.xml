@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ABOUT"
+        android:id="@+id/aboutTitleText"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:padding="8dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Some text about the app. Totally not an excuse to shoehorn in some more activities. That would be unethical."
+        android:id="@+id/aboutText"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WEBSITES"
+        android:id="@+id/webText"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:padding="8dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take a look on GitHub"
+        android:id="@+id/gitHubLinkButton"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

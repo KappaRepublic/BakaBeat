@@ -86,6 +86,8 @@ public class CategoriesScene extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)
         {
+            Intent intent = new Intent(CategoriesScene.this, OptionsScene.class);
+            startActivity(intent);
             Toast.makeText(getApplicationContext(), "Settings Chosen", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -109,6 +111,8 @@ public class CategoriesScene extends AppCompatActivity {
 
         if (id == R.id.about)
         {
+            Intent intent = new Intent(CategoriesScene.this, AboutScene.class);
+            startActivity(intent);
             Toast.makeText(getApplicationContext(), "About chosen", Toast.LENGTH_SHORT).show();
         }
 

@@ -23,6 +23,7 @@ public class SongScene  extends AppCompatActivity
     ListView allSongsListView;
     ArrayList<String> testArray;
     SongManager songManagerMain;
+    SongArrayAdapter songAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,8 +37,6 @@ public class SongScene  extends AppCompatActivity
         Intent givenIntent = getIntent();
         songManagerMain = (SongManager)givenIntent.getSerializableExtra("songManager");
 
-        testArray = new ArrayList<>();
-
         // Update the list view with songs in this category
         updateListView();
 
@@ -46,9 +45,11 @@ public class SongScene  extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                songManagerMain.playSong(position, songManagerMain.ARRAY_ALL_SONGS);
+                // songManagerMain.playSong(position, songManagerMain.ARRAY_ALL_SONGS);
                 Intent intent = new Intent(SongScene.this, CurrentSongScene.class);
                 intent.putExtra("songManager", songManagerMain);
+                intent.putExtra("position", position);
+                intent.putExtra("arrayId", songManagerMain.ARRAY_ALL_SONGS);
                 startActivity(intent);
             }
         });
@@ -63,16 +64,20 @@ public class SongScene  extends AppCompatActivity
 
     private void updateListView()
     {
-        for (int i = 0; i  <  songManagerMain.allSongList.size(); i++)
-        {
-            testArray.add(songManagerMain.allSongList.get(i).getSongName());
-        }
+        // for (int i = 0; i  <  songManagerMain.allSongList.size(); i++)
+        // {
+        //     testArray.add(songManagerMain.allSongList.get(i).getSongName());
+        // }
+
+        allSongsListView = (ListView)findViewById(R.id.listView);
+        songAdapter = new SongArrayAdapter(this, R.layout.audio_list_view, songManagerMain.allSongList);
+        allSongsListView.setAdapter(songAdapter);
 
         // Set up the listview
-        allSongsListView = (ListView)findViewById(R.id.listView);
-        final ArrayAdapter<String> allSongsListAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_1, android.R.id.text1, testArray);
-        allSongsListView.setAdapter(allSongsListAdapter);
+        // allSongsListView = (ListView)findViewById(R.id.listView);
+        // final ArrayAdapter<String> allSongsListAdapter = new ArrayAdapter<String>
+        //         (this, android.R.layout.simple_list_item_1, android.R.id.text1, testArray);
+        // allSongsListView.setAdapter(allSongsListAdapter);
     }
 
     @Override

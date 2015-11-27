@@ -50,17 +50,15 @@ public class SongManager implements Serializable
     // Plays the given song
     public void playSong(int index, int arrayId)
     {
+        // Get the music directory of the phone
         File audio = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
-        MediaPlayerSerializable mPlayerLocal = mPlayer;
-
-        Log.e("HELLO", ":" + getMediaCurrentPosition());
-        Log.e("HELLO", ":" + getMediaDuration());
 
         try
         {
             // Reset the media player
-            mPlayerLocal.stop();
-            mPlayerLocal.reset();
+            mPlayer.stop();
+            mPlayer.reset();
+
             // April fools easter egg time. In November/December
             // APRIL FOOLS
             Calendar calendar = Calendar.getInstance();
@@ -68,20 +66,22 @@ public class SongManager implements Serializable
             int month = calendar.get(Calendar.MONTH);
             if(day == 1 && month == Calendar.APRIL)
             {
-                mPlayerLocal.setDataSource(audio.getPath() + "/" + "rofl.mp3");
+                mPlayer.setDataSource(audio.getPath() + "/" + "rofl.mp3");
             }
             else
             {
-                mPlayerLocal.setDataSource(allSongList.get(index).getSongPath());
+                mPlayer.setDataSource(allSongList.get(index).getSongPath());
             }
             // Play the audio given
-            mPlayerLocal.prepare();
+            mPlayer.prepare();
             // mPlayerLocal.start();
 
-            mPlayerLocal.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
+            mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
                                           {
                                               @Override
                                               public void onPrepared(MediaPlayer mp) {
+                                                  // Wait for the media player to be prepared, or
+                                                  // bad stuff can happen
                                                   mp.start();
                                               }
                                           });
@@ -89,7 +89,7 @@ public class SongManager implements Serializable
             // Set the current song
             currentSong = allSongList.get(index);
             currentSong.setSongTime(0);
-            currentSong.setSongLength(mPlayerLocal.getDuration());
+            currentSong.setSongLength(mPlayer.getDuration());
         }
         catch(IOException e)
         {
@@ -103,15 +103,16 @@ public class SongManager implements Serializable
         currentSong.setSongTime(time);
     }
 
-    public int getMediaDuration()
+    public void playPauseSong()
     {
-        // Log.e("HELLO", ":" + getMediaDuration());
-        return mPlayer.getDuration();
-    }
-
-    public int getMediaCurrentPosition()
-    {
-        return mPlayer.getCurrentPosition();
+        if (mPlayer.isPlaying())
+        {
+            mPlayer.pause();
+        }
+        else
+        {
+            mPlayer.start();
+        }
     }
 
     // Populate the manager with items from file directory

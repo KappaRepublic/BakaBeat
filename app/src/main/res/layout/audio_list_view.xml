@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="48dp"
+
+    android:padding="6dip">
+    <!-- Item Name -->
+
+    <!-- Actual Item Name Data -->
+
+    <!-- Price Tag -->
+
+    <!-- Actual Price Data -->
+
+    <!-- Description Tag -->
+    <!-- This is the actual description -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Song"
+        android:id="@+id/songNameLView"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/albumImageLView"
+        android:layout_marginLeft="8dp"
+        android:textSize="19dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Artist"
+        android:id="@+id/artistNameLView"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/albumImageLView"
+        android:layout_marginLeft="8dp"
+        android:textIsSelectable="false"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" - "
+        android:id="@+id/dashLView"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/artistNameLView"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Album"
+        android:id="@+id/albumNameLView"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/dashLView"
+        android:textSize="10dp" />
+
+    <com.example.sposkittmarshall.bakabeatv01.SquareImageView
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/albumImageLView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

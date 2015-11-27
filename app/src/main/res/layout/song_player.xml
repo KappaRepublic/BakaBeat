@@ -4,11 +4,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:weightSum="1">
 
-    <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-        android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
+        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay"
+            xmlns:tools="http://schemas.android.com/tools"
+            tools:showIn="@layout/song_player" tools:context=".MainActivity"/>
+
+    </android.support.design.widget.AppBarLayout>
 
     <com.example.sposkittmarshall.bakabeatv01.SquareImageView
         android:layout_width="fill_parent"
@@ -21,8 +29,34 @@
         android:layout_height="wrap_content"
         android:id="@+id/seekBar" />
 
-    <com.example.sposkittmarshall.bakabeatv01.MediaControllerView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/view2" />
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/timeElapsedText"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/durationText"
+            android:layout_weight="1"
+            android:gravity="right" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Play/Pause"
+        android:id="@+id/playPauseButton"
+        android:layout_gravity="center_horizontal" />
+
 </LinearLayout>

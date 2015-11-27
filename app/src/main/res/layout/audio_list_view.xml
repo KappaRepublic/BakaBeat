@@ -4,16 +4,6 @@
     android:layout_height="48dp"
 
     android:padding="6dip">
-    <!-- Item Name -->
-
-    <!-- Actual Item Name Data -->
-
-    <!-- Price Tag -->
-
-    <!-- Actual Price Data -->
-
-    <!-- Description Tag -->
-    <!-- This is the actual description -->
 
     <TextView
         android:layout_width="wrap_content"

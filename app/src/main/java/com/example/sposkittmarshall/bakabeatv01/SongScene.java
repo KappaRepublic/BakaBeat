@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -64,20 +65,9 @@ public class SongScene  extends AppCompatActivity
 
     private void updateListView()
     {
-        // for (int i = 0; i  <  songManagerMain.allSongList.size(); i++)
-        // {
-        //     testArray.add(songManagerMain.allSongList.get(i).getSongName());
-        // }
-
         allSongsListView = (ListView)findViewById(R.id.listView);
         songAdapter = new SongArrayAdapter(this, R.layout.audio_list_view, songManagerMain.allSongList);
         allSongsListView.setAdapter(songAdapter);
-
-        // Set up the listview
-        // allSongsListView = (ListView)findViewById(R.id.listView);
-        // final ArrayAdapter<String> allSongsListAdapter = new ArrayAdapter<String>
-        //         (this, android.R.layout.simple_list_item_1, android.R.id.text1, testArray);
-        // allSongsListView.setAdapter(allSongsListAdapter);
     }
 
     @Override

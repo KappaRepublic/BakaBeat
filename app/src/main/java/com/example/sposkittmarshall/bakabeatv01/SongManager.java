@@ -25,8 +25,9 @@ import java.util.Comparator;
 public class SongManager implements Serializable
 {
     public ArrayList<Song> allSongList;
-    public MediaPlayerSerializable mPlayer;
+    static public MediaPlayerSerializable mPlayer;
     public Song currentSong;
+    protected int test;
 
     // Constants for array IDs
     final int ARRAY_ALL_SONGS = 0;
@@ -133,6 +134,16 @@ public class SongManager implements Serializable
             }
         }
         sortArrayLists();
+    }
+
+    public void testSet(int set)
+    {
+        test = set;
+    }
+
+    public int testGet()
+    {
+        return test;
     }
 
     protected void clearManager()

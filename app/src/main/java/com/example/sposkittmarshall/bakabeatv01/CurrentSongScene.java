@@ -1,5 +1,6 @@
 package com.example.sposkittmarshall.bakabeatv01;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -86,20 +87,17 @@ public class CurrentSongScene  extends AppCompatActivity implements View.OnClick
         trackSeekBar.setMax(songManagerMain.mPlayer.getDuration());
         trackSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-            {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar)
-            {
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar)
-            {
+            public void onStopTrackingTouch(SeekBar seekBar) {
                 songManagerMain.songJumpTo(seekBar.getProgress());
             }
         });

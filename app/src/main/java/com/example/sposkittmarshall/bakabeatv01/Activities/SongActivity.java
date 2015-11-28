@@ -24,7 +24,6 @@ public class SongActivity extends AppCompatActivity
 {
 
     ListView allSongsListView;
-    ArrayList<String> testArray;
     SongManager songManagerMain;
     SongArrayAdapter songAdapter;
 
@@ -56,18 +55,18 @@ public class SongActivity extends AppCompatActivity
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
     private void updateListView()
     {
         allSongsListView = (ListView)findViewById(R.id.listView);
         songAdapter = new SongArrayAdapter(this, R.layout.audio_list_view, songManagerMain.allSongList);
         allSongsListView.setAdapter(songAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override

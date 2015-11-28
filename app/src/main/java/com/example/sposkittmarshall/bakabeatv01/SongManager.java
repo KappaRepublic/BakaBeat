@@ -3,6 +3,7 @@ package com.example.sposkittmarshall.bakabeatv01;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Environment;
+import android.util.Log;
 
 import com.example.sposkittmarshall.bakabeatv01.SerializableClasses.MediaPlayerSerializable;
 
@@ -27,7 +28,6 @@ public class SongManager implements Serializable
 
     static public MediaPlayerSerializable mPlayer;
     public Song currentSong;
-    protected int test;
 
     // Constants for array IDs
     final public int ARRAY_ALL_SONGS = 0;
@@ -36,6 +36,7 @@ public class SongManager implements Serializable
     {
         // Set up array lists
         allSongList = new ArrayList<>();
+        albumList = new ArrayList<>();
 
         // Set up the media player
         mPlayer = new MediaPlayerSerializable();
@@ -137,6 +138,7 @@ public class SongManager implements Serializable
             }
         }
         sortArrayLists();
+        Log.e("Album size: ", "" + albumList.size());
     }
 
     protected void sortArtist()
@@ -150,13 +152,14 @@ public class SongManager implements Serializable
         {
             for(int i = 0; i < albumList.size(); i++)
             {
-                if (albumList.get(i).getAlbumName() == song.getSongAlbum())
+                if (albumList.get(i).getAlbumName().equals(song.getSongAlbum()))
                 {
                     albumList.get(i).songs.add(song);
                     return;
                 }
             }
             // If the album is not found, create a new one
+
             Album albumTemp = new Album();
             albumTemp.setAlbumName(song.getSongAlbum());
             albumTemp.setAlbumArtist(song.getSongArtist());

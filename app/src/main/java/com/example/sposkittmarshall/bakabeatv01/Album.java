@@ -1,11 +1,12 @@
 package com.example.sposkittmarshall.bakabeatv01;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by sposkittmarshall on 2015/11/28.
  */
-public class Album {
+public class Album implements Serializable{
     // Array list of songs within the album
     public ArrayList<Song> songs;
 

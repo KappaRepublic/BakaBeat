@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="48dp"
+
+    android:padding="6dip">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Album"
+        android:id="@+id/albumListNameView"
+        android:layout_marginLeft="8dp"
+        android:textSize="19dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/albumListImageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Artist"
+        android:id="@+id/albumListArtistView"
+        android:layout_marginLeft="8dp"
+        android:textIsSelectable="false"
+        android:textSize="10dp"
+        android:layout_below="@+id/albumListNameView"
+        android:layout_toEndOf="@+id/albumListImageView" />
+
+    <com.example.sposkittmarshall.bakabeatv01.CustomViews.SquareImageView
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/albumListImageView"
+        android:layout_alignBottom="@+id/albumListArtistView"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

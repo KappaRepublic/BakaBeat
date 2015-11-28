@@ -50,7 +50,7 @@ public class Song implements Serializable
         }
         catch(Exception e)
         {
-            // songName = "Unknown Title";
+             songName = "Unknown Title";
         }
         try
         {
@@ -58,7 +58,7 @@ public class Song implements Serializable
         }
         catch(Exception e)
         {
-            // songAlbum = "Unknown Album";
+             songAlbum = "Unknown Album";
         }
         try
         {
@@ -66,7 +66,7 @@ public class Song implements Serializable
         }
         catch(Exception e)
         {
-            // songArtist = "Unknown Artist";
+            songArtist = "Unknown Artist";
         }
         try
         {
@@ -74,7 +74,7 @@ public class Song implements Serializable
         }
         catch(Exception e)
         {
-            // songGenre = "Unknown Genre";
+            songGenre = "Unknown Genre";
         }
         try
         {
@@ -82,7 +82,7 @@ public class Song implements Serializable
         }
         catch(Exception e)
         {
-            // albumArt = NULL;
+            albumArt = null;
         }
     }
 

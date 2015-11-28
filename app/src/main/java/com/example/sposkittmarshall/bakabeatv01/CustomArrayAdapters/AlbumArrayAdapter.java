@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.example.sposkittmarshall.bakabeatv01.Album;
 import com.example.sposkittmarshall.bakabeatv01.CustomViews.SquareImageView;
 import com.example.sposkittmarshall.bakabeatv01.R;
-import com.example.sposkittmarshall.bakabeatv01.Song;
 
 import java.util.ArrayList;
 
@@ -38,40 +37,34 @@ public class AlbumArrayAdapter extends ArrayAdapter<Album> {
         if (tempView == null)
         {
             LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            tempView = inflater.inflate(R.layout.audio_list_view, null);
+            tempView = inflater.inflate(R.layout.album_list_view, null);
         }
 
-        Song song = objects.get(position);
+        Album album = objects.get(position);
 
-        if (song != null)
+        if (album != null)
         {
             // Setup the fields of the list item
-            TextView songNameView = (TextView)tempView.findViewById(R.id.songNameLView);
-            TextView artistNameView = (TextView)tempView.findViewById(R.id.artistNameLView);
-            TextView albumNameView = (TextView)tempView.findViewById(R.id.albumNameLView);
-            SquareImageView albumArtView = (SquareImageView)tempView.findViewById(R.id.albumImageLView);
+            TextView albumNameView = (TextView)tempView.findViewById(R.id.albumListNameView);
+            TextView albumArtistView = (TextView)tempView.findViewById(R.id.albumListArtistView);
+            SquareImageView albumArtView = (SquareImageView)tempView.findViewById(R.id.albumListImageView);
 
             // Check to see if anything is null, then assign text/image
-            if (songNameView != null)
-            {
-                songNameView.setText(song.getSongName());
-            }
-
-            if (artistNameView != null)
-            {
-                artistNameView.setText(song.getSongArtist());
-            }
-
             if (albumNameView != null)
             {
-                albumNameView.setText(song.getSongAlbum());
+                albumNameView.setText(album.getAlbumName());
+            }
+
+            if (albumArtistView != null)
+            {
+                albumArtistView.setText(album.getAlbumArtist());
             }
 
             if (albumArtView != null)
             {
-                if (song.getAlbumArt() != null)
+                if (album.getAlbumArt() != null)
                 {
-                    Bitmap albumArt = BitmapFactory.decodeByteArray(song.getAlbumArt(), 0, song.getAlbumArt().length);
+                    Bitmap albumArt = BitmapFactory.decodeByteArray(album.getAlbumArt(), 0, album.getAlbumArt().length);
                     albumArtView.setImageBitmap(albumArt);
                 }
                 else

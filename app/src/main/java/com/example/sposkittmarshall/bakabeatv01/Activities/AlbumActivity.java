@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.sposkittmarshall.bakabeatv01.CustomArrayAdapters.AlbumArrayAdapter;
 import com.example.sposkittmarshall.bakabeatv01.R;
 import com.example.sposkittmarshall.bakabeatv01.SongManager;
 
@@ -16,6 +19,10 @@ import com.example.sposkittmarshall.bakabeatv01.SongManager;
  */
 public class AlbumActivity extends AppCompatActivity
 {
+    ListView albumListView;
+    SongManager songManagerMain;
+    AlbumArrayAdapter albumAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -26,8 +33,18 @@ public class AlbumActivity extends AppCompatActivity
 
         // Set up the passed songManager
         Intent givenIntent = getIntent();
-        SongManager songManagerMain = (SongManager)givenIntent.getSerializableExtra("songManager");
+        songManagerMain = (SongManager)givenIntent.getSerializableExtra("songManager");
 
+        // Update the list view
+        updateListView();
+
+    }
+
+    private void updateListView()
+    {
+        albumListView = (ListView)findViewById(R.id.listView);
+        albumAdapter = new AlbumArrayAdapter(this, R.layout.album_list_view, songManagerMain.albumList);
+        albumListView.setAdapter(albumAdapter);
     }
 
     @Override

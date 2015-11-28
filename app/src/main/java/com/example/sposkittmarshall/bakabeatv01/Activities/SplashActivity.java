@@ -1,13 +1,15 @@
-package com.example.sposkittmarshall.bakabeatv01;
+package com.example.sposkittmarshall.bakabeatv01.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.sposkittmarshall.bakabeatv01.R;
+
 /**
  * Created by sposkittmarshall on 2015/11/18.
  */
-public class SplashScene extends Activity {
+public class SplashActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,7 +31,7 @@ public class SplashScene extends Activity {
                 }
                 finally
                 {
-                    Intent intent = new Intent(SplashScene.this, CategoriesScene.class);
+                    Intent intent = new Intent(SplashActivity.this, CategoriesActivity.class);
                     startActivity(intent);
                 }
             }

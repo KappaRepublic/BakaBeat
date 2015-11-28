@@ -1,25 +1,23 @@
-package com.example.sposkittmarshall.bakabeatv01;
+package com.example.sposkittmarshall.bakabeatv01.Activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.sposkittmarshall.bakabeatv01.R;
+import com.example.sposkittmarshall.bakabeatv01.SongManager;
+
 import java.util.ArrayList;
 
-public class CategoriesScene extends AppCompatActivity {
+public class CategoriesActivity extends AppCompatActivity {
 
     ArrayList<String> categoryList;
     SongManager songManagerMain;
@@ -86,7 +84,7 @@ public class CategoriesScene extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)
         {
-            Intent intent = new Intent(CategoriesScene.this, OptionsScene.class);
+            Intent intent = new Intent(CategoriesActivity.this, OptionsActivity.class);
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "Settings Chosen", Toast.LENGTH_SHORT).show();
             return true;
@@ -111,7 +109,7 @@ public class CategoriesScene extends AppCompatActivity {
 
         if (id == R.id.about)
         {
-            Intent intent = new Intent(CategoriesScene.this, AboutScene.class);
+            Intent intent = new Intent(CategoriesActivity.this, AboutActivity.class);
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "About chosen", Toast.LENGTH_SHORT).show();
         }
@@ -137,25 +135,25 @@ public class CategoriesScene extends AppCompatActivity {
         {
             // If all songs is selected
             case "All Songs":
-                intent = new Intent(CategoriesScene.this, SongScene.class);
+                intent = new Intent(CategoriesActivity.this, SongActivity.class);
                 intent.putExtra("songManager", songManagerMain);
                 startActivity(intent);
                 break;
             // If artists is selected
             case "Artists":
-                intent = new Intent(CategoriesScene.this, ArtistScene.class);
+                intent = new Intent(CategoriesActivity.this, ArtistActivity.class);
                 intent.putExtra("songManager", songManagerMain);
                 startActivity(intent);
                 break;
             // If albums is selected
             case "Albums":
-                intent = new Intent(CategoriesScene.this, AlbumScene.class);
+                intent = new Intent(CategoriesActivity.this, AlbumActivity.class);
                 intent.putExtra("songManager", songManagerMain);
                 startActivity(intent);
                 break;
             // If genres is selected
             case "Genres":
-                intent = new Intent(CategoriesScene.this, GenreScene.class);
+                intent = new Intent(CategoriesActivity.this, GenreActivity.class);
                 intent.putExtra("songManager", songManagerMain);
                 startActivity(intent);
                 break;

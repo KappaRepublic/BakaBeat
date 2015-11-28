@@ -1,24 +1,26 @@
-package com.example.sposkittmarshall.bakabeatv01;
+package com.example.sposkittmarshall.bakabeatv01.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.sposkittmarshall.bakabeatv01.R;
+import com.example.sposkittmarshall.bakabeatv01.CustomArrayAdapters.SongArrayAdapter;
+import com.example.sposkittmarshall.bakabeatv01.SongManager;
 
 import java.util.ArrayList;
 
 /**
  * Created by sposk_000 on 2015/11/23.
  */
-public class SongScene  extends AppCompatActivity
+public class SongActivity extends AppCompatActivity
 {
 
     ListView allSongsListView;
@@ -41,13 +43,11 @@ public class SongScene  extends AppCompatActivity
         // Update the list view with songs in this category
         updateListView();
 
-        allSongsListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        allSongsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // songManagerMain.playSong(position, songManagerMain.ARRAY_ALL_SONGS);
-                Intent intent = new Intent(SongScene.this, CurrentSongScene.class);
+                Intent intent = new Intent(SongActivity.this, CurrentSongActivity.class);
                 intent.putExtra("songManager", songManagerMain);
                 intent.putExtra("position", position);
                 intent.putExtra("arrayId", songManagerMain.ARRAY_ALL_SONGS);

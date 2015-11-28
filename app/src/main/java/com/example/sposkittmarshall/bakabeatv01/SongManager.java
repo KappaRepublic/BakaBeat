@@ -1,15 +1,10 @@
 package com.example.sposkittmarshall.bakabeatv01;
 
-import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Environment;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.support.v4.os.ParcelableCompatCreatorCallbacks;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
+
+import com.example.sposkittmarshall.bakabeatv01.SerializableClasses.MediaPlayerSerializable;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,13 +19,18 @@ import java.util.Comparator;
  */
 public class SongManager implements Serializable
 {
+    // Array lists for storing song information
     public ArrayList<Song> allSongList;
+    public ArrayList<Artist> artistList;
+    public ArrayList<Album> albumList;
+    public ArrayList<Genre> genreList;
+
     static public MediaPlayerSerializable mPlayer;
     public Song currentSong;
     protected int test;
 
     // Constants for array IDs
-    final int ARRAY_ALL_SONGS = 0;
+    final public int ARRAY_ALL_SONGS = 0;
 
     public SongManager()
     {
@@ -129,21 +129,58 @@ public class SongManager implements Serializable
                 {
                     // Create a temporary song object
                     Song tempSong = new Song(f.getName());
+                    // Push that song to the all song list
                     allSongList.add(tempSong);
+                    // Add the song to an album
+                    sortAlbum(tempSong);
                 }
             }
         }
         sortArrayLists();
     }
 
-    public void testSet(int set)
+    protected void sortArtist()
     {
-        test = set;
+
     }
 
-    public int testGet()
+    protected void sortAlbum(Song song)
     {
-        return test;
+        if (!albumList.isEmpty())
+        {
+            for(int i = 0; i < albumList.size(); i++)
+            {
+                if (albumList.get(i).getAlbumName() == song.getSongAlbum())
+                {
+                    albumList.get(i).songs.add(song);
+                    return;
+                }
+            }
+            // If the album is not found, create a new one
+            Album albumTemp = new Album();
+            albumTemp.setAlbumName(song.getSongAlbum());
+            albumTemp.setAlbumArtist(song.getSongArtist());
+            albumTemp.setAlbumArt(song.getAlbumArt());
+            albumTemp.songs.add(song);
+            albumList.add(albumTemp);
+            return;
+        }
+        else
+        {
+            // Create a new album, as none exist
+            Album albumTemp = new Album();
+            albumTemp.setAlbumName(song.getSongAlbum());
+            albumTemp.setAlbumArtist(song.getSongArtist());
+            albumTemp.setAlbumArt(song.getAlbumArt());
+            albumTemp.songs.add(song);
+            albumList.add(albumTemp);
+            return;
+        }
+    }
+
+    protected void sortGenre()
+    {
+
     }
 
     protected void clearManager()
@@ -151,7 +188,7 @@ public class SongManager implements Serializable
         allSongList.clear();
     }
 
-    // Sorts the array lists of songs alphabetically
+    // Sorts all array lists alphabetically
     protected void sortArrayLists()
     {
         // Sort all songs alphabetically
@@ -160,6 +197,15 @@ public class SongManager implements Serializable
             @Override
             public int compare(Song lhs, Song rhs) {
                 return lhs.getSongName().compareToIgnoreCase(rhs.getSongName());
+            }
+        });
+
+        // Sort all albums alphabetically
+        Collections.sort(albumList, new Comparator<Album>()
+        {
+            @Override
+            public int compare(Album lhs, Album rhs) {
+                return lhs.getAlbumName().compareToIgnoreCase(rhs.getAlbumName());
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.example.sposkittmarshall.bakabeatv01;
+package com.example.sposkittmarshall.bakabeatv01.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.sposkittmarshall.bakabeatv01.R;
+import com.example.sposkittmarshall.bakabeatv01.SongManager;
+
 /**
- * Created by sposk_000 on 2015/11/23.
+ * Created by sposk_000 on 2015/11/24.
  */
-public class AlbumScene  extends AppCompatActivity
+public class GenreActivity extends AppCompatActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState)

@@ -1,4 +1,4 @@
-package com.example.sposkittmarshall.bakabeatv01;
+package com.example.sposkittmarshall.bakabeatv01.SerializableClasses;
 
 import android.media.MediaPlayer;
 

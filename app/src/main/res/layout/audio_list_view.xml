@@ -44,7 +44,7 @@
         android:layout_toEndOf="@+id/dashLView"
         android:textSize="10dp" />
 
-    <com.example.sposkittmarshall.bakabeatv01.SquareImageView
+    <com.example.sposkittmarshall.bakabeatv01.CustomViews.SquareImageView
         android:layout_width="36dp"
         android:layout_height="wrap_content"
         android:id="@+id/albumImageLView"

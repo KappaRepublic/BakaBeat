@@ -1,9 +1,9 @@
 package com.example.sposkittmarshall.bakabeatv01;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.os.Environment;
+
+import com.example.sposkittmarshall.bakabeatv01.SerializableClasses.MetaDataRetrieverSerializable;
 
 import java.io.File;
 import java.io.Serializable;

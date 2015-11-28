@@ -1,6 +1,5 @@
-package com.example.sposkittmarshall.bakabeatv01;
+package com.example.sposkittmarshall.bakabeatv01.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,12 +13,15 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.util.concurrent.TimeUnit;
+import com.example.sposkittmarshall.bakabeatv01.Helpers;
+import com.example.sposkittmarshall.bakabeatv01.R;
+import com.example.sposkittmarshall.bakabeatv01.SongManager;
+import com.example.sposkittmarshall.bakabeatv01.CustomViews.SquareImageView;
 
 /**
  * Created by sposk_000 on 2015/11/23.
  */
-public class CurrentSongScene  extends AppCompatActivity implements View.OnClickListener
+public class CurrentSongActivity extends AppCompatActivity implements View.OnClickListener
 {
     SquareImageView albumView;
     SongManager songManagerMain;
